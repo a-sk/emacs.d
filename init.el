@@ -724,9 +724,8 @@ Missing packages are installed automatically."
 ;; Code folding {{{
 
 (defun count-chars-from-pos (pos)
-  (setq line-num (line-number-at-pos pos))
   (save-excursion
-    (goto-line line-num)
+    (goto-char pos)
     (- pos (line-beginning-position)
             )
     )
