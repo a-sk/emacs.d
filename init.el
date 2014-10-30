@@ -646,6 +646,10 @@ Missing packages are installed automatically."
         "M--"       'evil-numbers/dec-at-pt
         "M-_"       'evil-numbers/dec-at-pt
 )
+(fill-keymap evil-visual-state-map
+        "H"         'beginning-of-line
+        "L"         'end-of-line
+    )
 
 (fill-keymap evil-motion-state-map
         "y"     'evil-yank
