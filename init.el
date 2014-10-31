@@ -1,4 +1,6 @@
-;; Init {{{
+;;; init.el --- my emacs configuration
+
+;;{{{ Init
 
 (defvar my-config-root-dir (file-name-directory load-file-name)
   "The root dir of the Emacs config.")
@@ -41,7 +43,7 @@
 
 ;;}}}
 
-;; Utilities {{{
+;;{{{ Utilities
 
 (defun append-to-list (list-var elements)
   "Append ELEMENTS to the end of LIST-VAR.
@@ -132,115 +134,14 @@ See `pour-mappings-to'."
   map)
 ;;}}}
 
-;; Packages {{{
-(require 'cl)
-(require 'package)
+;;{{{ Packages
 
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-
-
-(package-initialize)
-
-(defvar my-packages
-  '(
-    ace-jump-buffer
-    ace-jump-mode
-    anaconda-mode
-    anzu
-    autopair
-    bookmark+
-    company
-    company-anaconda
-    company-go
-    company-tern
-    dash-at-point
-    diff-hl
-    diminish
-    dired-rainbow
-    dired-ranger
-    evil
-    evil-jumper
-    evil-leader
-    evil-matchit
-    evil-nerd-commenter
-    evil-numbers
-    evil-surround
-    evil-visualstar
-    expand-region
-    fic-mode
-    flycheck
-    flycheck-pyflakes
-    gist
-    gitconfig-mode
-    gitignore-mode
-    go-eldoc
-    go-mode
-    gotest
-    goto-chg
-    helm
-    helm-ag
-    helm-descbinds
-    helm-flycheck
-    helm-projectile
-    helm-swoop
-    js3-mode
-    json-mode
-    linum
-    linum-relative
-    magit
-    markdown-mode
-    maxframe
-    popwin
-    projectile
-    py-isort
-    rainbow-delimiters
-    savekill
-    smart-mode-line
-    smartparens
-    solarized-theme
-    tern
-    undo-tree
-    volatile-highlights
-    whitespace
-    ws-butler
-    yasnippet
-    )
-  "A list of packages to ensure are installed at launch.")
-
-(defun my-packages-installed-p ()
-  "Check if all packages in `my-packages' are installed."
-  (every #'package-installed-p my-packages))
-
-(defun my-require-package (package)
-  "Install PACKAGE unless already installed."
-  (unless (memq package my-packages)
-    (add-to-list 'my-packages package))
-  (unless (package-installed-p package)
-    (package-install package)))
-
-(defun my-require-packages (packages)
-  "Ensure PACKAGES are installed.
-Missing packages are installed automatically."
-  (mapc #'my-require-package packages))
-
-
-(defun my-install-packages ()
-  "Install all packages listed in `my-packages'."
-  (unless (my-packages-installed-p)
-    ;; check for new packages (package versions)
-    (message "%s" "refreshing package database...")
-    (package-refresh-contents)
-    (message "%s" " done.")
-    ;; install the missing packages
-    (my-require-packages my-packages)))
-
-;; run package installation
-(my-install-packages)
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
 
 ;;}}}
 
-;; Ui {{{
+;;{{{ Ui
 
 (custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
 
@@ -334,7 +235,7 @@ Missing packages are installed automatically."
 (add-hook 'window-setup-hook 'maximize-frame t)
 ;;}}}
 
-;; Editing {{{
+;;{{{ Editing
 
 ;; Emacs modes typically provide a standard means to change the
 ;; indentation width -- eg. c-basic-offset: use that to adjust your
@@ -494,7 +395,7 @@ Missing packages are installed automatically."
 (load save-kill-file-name t)
 ;;;}}}
 
-;; Helm {{{
+;;{{{ Helm
 
 (require 'helm)
 (require 'helm-config)
@@ -559,7 +460,7 @@ Missing packages are installed automatically."
 
 ;;}}}
 
-;; Evil {{{
+;;{{{ Evil
 (require 'evil-leader)
 (evil-leader/set-leader "<SPC>")
 (global-evil-leader-mode +1)
@@ -619,6 +520,7 @@ Missing packages are installed automatically."
     evil-emacs-state-modes '(magit-mode)
     )
 
+(require 'evil-visualstar)
 (require 'evil-matchit)
 
 (evil-define-key 'normal evil-matchit-mode-map
@@ -721,7 +623,7 @@ Missing packages are installed automatically."
 (define-key evil-normal-state-map (kbd "RET") 'er/expand-region)
 ;;}}}
 
-;; Code folding {{{
+;;{{{ Code folding
 
 (defun count-chars-from-pos (pos)
   (save-excursion
@@ -779,9 +681,10 @@ Missing packages are installed automatically."
 
 
 (setq hs-set-up-overlay 'my-display-code-line-counts)
+
 ;;}}}
 
-;; Completion {{{
+;;{{{ Completion
 
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
@@ -794,7 +697,7 @@ Missing packages are installed automatically."
 
 ;;;}}}
 
-;; Programming {{{
+;;{{{ Programming
 
 (require 'fic-mode)
 (add-hook 'prog-mode-hook 'fic-mode)
@@ -806,7 +709,7 @@ Missing packages are installed automatically."
 
 ;;}}}
 
-;; Python {{{
+;;{{{ Python
 
 (defun my-python-mode-defaults ()
   "Defaults for Python programming."
@@ -836,7 +739,7 @@ Missing packages are installed automatically."
 
 ;;}}}
 
-;; Go {{{
+;;{{{ Go
 
 (defun my-go-mode-hook ()
     ;; Prefer goimports to gofmt if installed
@@ -871,7 +774,7 @@ Missing packages are installed automatically."
 
 ;;}}}
 
-;; JS {{{
+;;{{{ JS
 
 (require 'js3-mode)
 (setq
@@ -898,7 +801,7 @@ Missing packages are installed automatically."
 
 ;;}}}
 
-;; Markdown {{{
+;;{{{ Markdown
 
 (autoload 'markdown-mode "markdown-mode"
    "Major mode for editing Markdown files" t)
@@ -908,15 +811,11 @@ Missing packages are installed automatically."
 
 ;;}}}
 
-;; Ace {{{
+;;{{{ Git
 
 ;;}}}
 
-;; Git {{{
-
-;;}}}
-
-;; Snippets {{{
+;;{{{ Snippets
 
 (add-to-list 'load-path
               "~/.emacs.d/plugins/yasnippet")
@@ -926,7 +825,7 @@ Missing packages are installed automatically."
 
 ;;}}}
 
-;; Dired {{{
+;;{{{ Dired
 
 (require 'dired-x)
 (require 'bookmark+)
@@ -949,17 +848,17 @@ Missing packages are installed automatically."
 
 ;;}}}
 
-;; Eshell {{{
+;;{{{ Eshell
 (setq eshell-directory-name (expand-file-name "eshell" my-var-dir))
 ;;}}}
 
-;; Projectile {{{
+;;{{{ Projectile
 
 (setq projectile-cache-file
     (expand-file-name  "projectile.cache" my-savefile-dir))
 ;;}}}
 
-;; Mu4e {{{
+;;{{{ Mu4e
 
 ;(require 'mu4e)
 
@@ -975,4 +874,7 @@ Missing packages are installed automatically."
 
 ;; }}}
 
-;; vim: set foldmethod=marker
+;;{{{ Others 
+(setq sane-term-shell-command "/usr/local/bin/zsh")
+
+;}}}
