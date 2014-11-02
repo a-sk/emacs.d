@@ -852,22 +852,6 @@ See `pour-mappings-to'."
     (expand-file-name  "projectile.cache" my-savefile-dir))
 ;;}}}
 
-;;{{{ Mu4e
-
-;(require 'mu4e)
-
-;(setq mu4e-maildir "~/Maildir/mail/hostcomm")
-;(setq mu4e-use-fancy-chars t) ;; use 'fancy' non-ascii characters in various places in mu4e
-
-;(setq
-  ;mu4e-get-mail-command "mbsync -a"   ;; or fetchmail, or ...
-  ;mu4e-update-interval 300)             ;; update every 5 minutes
-
-
-;(setq message-kill-buffer-on-exit t) ;; don't keep message buffers around
-
-;; }}}
-
 ;;{{{ Others 
 (setq sane-term-shell-command "/usr/local/bin/zsh")
 
