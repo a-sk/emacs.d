@@ -580,6 +580,9 @@ See `pour-mappings-to'."
         "m"   'bookmark-set
         "'"   'bmkp-dired-jump
         "`"   'bmkp-dired-jump
+        "om"  'dired-sort-time
+        "on"  'dired-sort-name
+        "ot"  'dired-sort-extension
         (kbd "<C-return>") 'dired-open-xdg
     )
 
