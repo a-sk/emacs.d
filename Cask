@@ -18,7 +18,6 @@
 (depends-on "ace-jump-mode")
 (depends-on "anaconda-mode")
 (depends-on "anzu")
-(depends-on "autopair")
 (depends-on "bookmark+")
 (depends-on "company")
 (depends-on "company-anaconda")

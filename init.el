@@ -382,12 +382,6 @@ See `pour-mappings-to'."
 (require 'diff-hl)
 (global-diff-hl-mode 1)
 
-(require 'autopair)
-(hook-into-modes #'autopair-mode '(c-mode-common-hook
-                                    text-mode-hook
-                                    ruby-mode-hook
-                                    python-mode-hook
-                                    sh-mode-hook))
 
 (require 'savekill)
 (setq savekill-max-saved-items nil)
