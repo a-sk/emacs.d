@@ -45,6 +45,12 @@
 
 ;;{{{ Utilities
 
+(defmacro after-load (feature &rest body)
+  "After FEATURE is loaded, evaluate BODY."
+  (declare (indent defun))
+  `(eval-after-load ,feature
+     '(progn ,@body)))
+
 (defun append-to-list (list-var elements)
   "Append ELEMENTS to the end of LIST-VAR.
 
@@ -821,26 +827,29 @@ See `pour-mappings-to'."
 
 ;;{{{ Dired
 
-(require 'dired-x)
-(require 'bookmark+)
+(after-load 'dired
+    (require 'dired-x)
+    (require 'dired-sort)
+    (require 'bookmark+)
 
-(if (eq system-type 'darwin)
-  (setq insert-directory-program "/usr/local/bin/gls")
+    (if (eq system-type 'darwin)
+    (setq insert-directory-program "/usr/local/bin/gls")
+    )
+    (setq-default dired-omit-files-p t) ; this is buffer-local variable
+    (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$\\|\\.pdf$\\|\\.tex$"))
+
+
+    (require 'dired-rainbow)
+    (defconst my-dired-media-files-extensions
+    '("mp3" "mp4" "MP3" "MP4" "avi" "mpg" "flv" "ogg" "mkv")
+    "Media files.")
+
+    (dired-rainbow-define html "#4e9a06" ("htm" "html" "xhtml"))
+    (dired-rainbow-define media "#ce5c00" my-dired-media-files-extensions)
+
+    ; highlight executable files, but not directories
+    (dired-rainbow-define-chmod executable-unix "Green" "-.*x.*")
 )
-(setq-default dired-omit-files-p t) ; this is buffer-local variable
-(setq dired-omit-files (concat dired-omit-files "\\|^\\..+$\\|\\.pdf$\\|\\.tex$"))
-
-
-(require 'dired-rainbow)
-(defconst my-dired-media-files-extensions
-'("mp3" "mp4" "MP3" "MP4" "avi" "mpg" "flv" "ogg" "mkv")
-"Media files.")
-
-(dired-rainbow-define html "#4e9a06" ("htm" "html" "xhtml"))
-(dired-rainbow-define media "#ce5c00" my-dired-media-files-extensions)
-
-; highlight executable files, but not directories
-(dired-rainbow-define-chmod executable-unix "Green" "-.*x.*")
 
 ;;}}}
 

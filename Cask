@@ -28,6 +28,7 @@
 (depends-on "diminish")
 (depends-on "dired-rainbow")
 (depends-on "dired-ranger")
+(depends-on "dired-sort")
 (depends-on "evil")
 (depends-on "evil-jumper")
 (depends-on "evil-leader")
