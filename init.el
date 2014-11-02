@@ -824,7 +824,9 @@ See `pour-mappings-to'."
 (require 'dired-x)
 (require 'bookmark+)
 
-(setq insert-directory-program "/usr/local/bin/gls")
+(if (eq system-type 'darwin)
+  (setq insert-directory-program "/usr/local/bin/gls")
+)
 (setq-default dired-omit-files-p t) ; this is buffer-local variable
 (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$\\|\\.pdf$\\|\\.tex$"))
 
