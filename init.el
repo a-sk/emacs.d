@@ -735,6 +735,8 @@ See `pour-mappings-to'."
 (setq company-idle-delay 0.5)
 (setq company-tooltip-limit 10)
 (setq company-minimum-prefix-length 2)
+(setq company-show-numbers t)
+
 ;; invert the navigation direction if the the completion popup-isearch-match
 ;; is displayed on top (happens near the bottom of windows)
 (setq company-tooltip-flip-when-above t)
@@ -771,7 +773,9 @@ See `pour-mappings-to'."
   (smartparens-mode +1)
   (anaconda-mode +1)
   (flycheck-mode +1)
-  (set (make-local-variable 'company-backends) '(company-anaconda))
+  (setq (make-local-variable 'company-backends)
+    '(company-anaconda company-files company-yasnippet company-semantic company-capf
+                  (company-dabbrev-code company-keywords)))
 
   (when (fboundp 'exec-path-from-shell-copy-env)
     (exec-path-from-shell-copy-env "PYTHONPATH"))
