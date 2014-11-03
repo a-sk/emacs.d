@@ -730,12 +730,23 @@ See `pour-mappings-to'."
 
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
+(eval-after-load 'company '(add-to-list 'company-transformers 'company-sort-by-occurrence))
+
 (setq company-idle-delay 0.5)
 (setq company-tooltip-limit 10)
 (setq company-minimum-prefix-length 2)
 ;; invert the navigation direction if the the completion popup-isearch-match
 ;; is displayed on top (happens near the bottom of windows)
 (setq company-tooltip-flip-when-above t)
+
+
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+
+(define-key company-mode-map (kbd "TAB") 'company-complete)
+(define-key company-active-map (kbd "M-s") 'company-filter-candidates)
+
+
 
 ;;;}}}
 
