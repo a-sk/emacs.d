@@ -468,6 +468,12 @@ See `pour-mappings-to'."
 (define-key helm-map (kbd "C-y")  'helm-yank-text-at-point)
 (define-key helm-map (kbd "M-y")  'helm-yank-text-at-point)
 
+(define-key helm-map (kbd "M-v")  'clipboard-yank)
+(define-key helm-map (kbd "C-v")  'clipboard-yank)
+
+(define-key helm-map (kbd "M-n")  'helm-next-page)
+(define-key helm-map (kbd "M-p")  'helm-previous-page)
+
 ;; Bind all actions from 1 to 9 to C-nth in helm action (after C-z)
 (cl-loop for n from 1 to 9 do
          (define-key helm-map (kbd (format "C-%s" n))
@@ -564,6 +570,8 @@ See `pour-mappings-to'."
         "M-="       'evil-numbers/inc-at-pt
         "M--"       'evil-numbers/dec-at-pt
         "M-_"       'evil-numbers/dec-at-pt
+        "M-v"       'clipboard-yank
+        "C-v"       'clipboard-yank
 )
 (fill-keymap evil-visual-state-map
         "H"         'beginning-of-line
@@ -578,14 +586,19 @@ See `pour-mappings-to'."
         "C-S-d" 'evil-scroll-up
         "C-S-f" 'evil-scroll-page-up
         "_"     'evil-first-non-blank
-        "C-y"   nil)
+        "C-y"   nil
+
+)
 
 (fill-keymap evil-insert-state-map
         "C-h" 'backward-delete-char
         "C-k" 'kill-line
         "C-y" 'yank
         "C-a" 'beginning-of-line
-        "C-e" 'end-of-line)
+        "C-e" 'end-of-line
+        "M-v"       'clipboard-yank
+        "C-v"       'clipboard-yank
+)
 
 (evil-define-key 'normal dired-mode-map
         "y"   'dired-ranger-copy
