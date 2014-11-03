@@ -421,6 +421,9 @@ See `pour-mappings-to'."
     helm-ls-git-status-command            'magit-status
     helm-candidate-number-limit           200
 )
+(if (eq system-type 'darwin)
+    (setq locate-command "mdfind")
+  )
 
 
 
@@ -429,11 +432,14 @@ See `pour-mappings-to'."
    (lambda (path)
      (substitute-in-file-name (format "^$HOME/%s" path))
      )
-   '(".var" ".cache" ".virtualenvs")
+   '(".var" ".cache" ".virtualenvs" ".emacs.d/var" "Library")
    )
   )
 
 (add-to-list 'my-helm-boring-file-regexp-list "\\.egg-info$")
+(add-to-list 'my-helm-boring-file-regexp-list "^\\/Applications")
+(add-to-list 'my-helm-boring-file-regexp-list "^\\/System")
+(add-to-list 'my-helm-boring-file-regexp-list "^\\/Library")
 
 
 ;; (setq helm-boring-file-regexp-list
@@ -531,6 +537,7 @@ See `pour-mappings-to'."
     "k"     'dash-at-point
     "]"     'add-blank-line-down
     "["     'add-blank-line-up
+    "l"     'helm-locate
 )
 
 (require 'evil)
@@ -572,6 +579,7 @@ See `pour-mappings-to'."
         "M-_"       'evil-numbers/dec-at-pt
         "M-v"       'clipboard-yank
         "C-v"       'clipboard-yank
+        "C-p"       'helm-show-kill-ring
 )
 (fill-keymap evil-visual-state-map
         "H"         'beginning-of-line
