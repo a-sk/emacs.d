@@ -27,6 +27,7 @@
 (depends-on "diff-hl")
 (depends-on "diminish")
 (depends-on "dired-rainbow")
+(depends-on "dired+")
 (depends-on "dired-ranger")
 (depends-on "dired-sort")
 (depends-on "evil")
@@ -77,4 +78,6 @@
 (depends-on "yasnippet")
 (depends-on "sane-term")
 (depends-on "aggressive-indent")
+(depends-on "switch-window")
+(depends-on "evil-search-highlight-persist")
 
