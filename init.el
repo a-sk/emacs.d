@@ -442,7 +442,6 @@ See `pour-mappings-to'."
 (add-to-list 'my-helm-boring-file-regexp-list "^\\/Library")
 
 
-;; (setq helm-boring-file-regexp-list
 (append-to-list 'helm-boring-file-regexp-list my-helm-boring-file-regexp-list)
 
 
@@ -463,6 +462,8 @@ See `pour-mappings-to'."
 (helm-mode 1)
 (helm-adaptative-mode 1)
 
+
+(global-set-key (kbd "M-x") 'helm-M-x)
 
 ;; Make helm mode me friendly
 (define-key helm-map (kbd "C-w")  'backward-kill-word)
