@@ -864,7 +864,9 @@ See `pour-mappings-to'."
     '("mp3" "mp4" "MP3" "MP4" "avi" "mpg" "flv" "ogg" "mkv")
     "Media files.")
 
-    (setq bmkp-last-as-first-bookmark-file (expand-file-name "bookmarks" my-var-dir))
+    (custom-set-variables
+      '(bmkp-last-as-first-bookmark-file (expand-file-name "bookmarks" my-var-dir))
+      )
 
     (dired-rainbow-define html "#4e9a06" ("htm" "html" "xhtml"))
     (dired-rainbow-define media "#ce5c00" my-dired-media-files-extensions)
@@ -885,7 +887,8 @@ See `pour-mappings-to'."
     (expand-file-name  "projectile.cache" my-savefile-dir))
 ;;}}}
 
-;;{{{ Others 
+;;{{{ Others
 (setq sane-term-shell-command "/usr/local/bin/zsh")
+(setq tramp-persistency-file-name (expand-file-name "tramp" my-var-dir))
 
 ;}}}
