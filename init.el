@@ -458,6 +458,23 @@ See `pour-mappings-to'."
 (helm-adaptative-mode 1)
 
 
+;; Make helm mode me friendly
+(define-key helm-map (kbd "C-w")  'backward-kill-word)
+(define-key helm-map (kbd "M-w")  'backward-kill-word)
+
+(define-key helm-find-files-map (kbd "C-w")  'helm-find-files-up-one-level)
+(define-key helm-find-files-map (kbd "M-w")  'helm-find-files-up-one-level)
+
+(define-key helm-map (kbd "C-y")  'helm-yank-text-at-point)
+(define-key helm-map (kbd "M-y")  'helm-yank-text-at-point)
+
+;; Bind all actions from 1 to 9 to C-nth in helm action (after C-z)
+(cl-loop for n from 1 to 9 do
+         (define-key helm-map (kbd (format "C-%s" n))
+           `(lambda ()
+              (interactive)
+              (helm-select-nth-action ,n))))
+
 ;;}}}
 
 ;;{{{ Evil
