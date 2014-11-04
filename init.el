@@ -399,6 +399,7 @@ See `pour-mappings-to'."
 
 (require 'helm)
 (require 'helm-config)
+(require 'helm-adaptive)
 (setq helm-adaptive-history-file (expand-file-name "helm-adaptive-history" my-var-dir))
 
 (require 'helm-projectile)
@@ -468,6 +469,7 @@ See `pour-mappings-to'."
 ;; Make helm mode me friendly
 (define-key helm-map (kbd "C-w")  'backward-kill-word)
 (define-key helm-map (kbd "M-w")  'backward-kill-word)
+(define-key helm-map (kbd "M-A")  'helm-unmark-all)
 
 (define-key helm-find-files-map (kbd "C-w")  'helm-find-files-up-one-level)
 (define-key helm-find-files-map (kbd "M-w")  'helm-find-files-up-one-level)
@@ -480,6 +482,8 @@ See `pour-mappings-to'."
 
 (define-key helm-map (kbd "M-n")  'helm-next-page)
 (define-key helm-map (kbd "M-p")  'helm-previous-page)
+
+
 
 ;; Bind all actions from 1 to 9 to C-nth in helm action (after C-z)
 (cl-loop for n from 1 to 9 do
