@@ -514,9 +514,13 @@ See `pour-mappings-to'."
 )
 
 
+(defun projectile-helm-ag ()
+  (interactive)
+  (helm-ag (projectile-project-root)))
 
 (evil-leader/set-key
     "a"     'helm-ag
+    "A"     'projectile-helm-ag
     "p"     'helm-show-kill-ring
     "b"     'helm-mini
     "f"     'helm-find-files
