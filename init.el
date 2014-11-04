@@ -41,6 +41,10 @@
 (let ((default-directory my-vendor-dir))
   (normal-top-level-add-subdirs-to-load-path))
 
+;; load environment variables
+(let ((envs '("PATH" "VIRTUAL_ENV" "GOROOT" "GOPATH" "PYTHONPATH")))
+  (exec-path-from-shell-copy-envs envs))
+
 ;;}}}
 
 ;;{{{ Utilities
@@ -784,9 +788,6 @@ See `pour-mappings-to'."
   (setq (make-local-variable 'company-backends)
     '(company-anaconda company-files company-yasnippet company-semantic company-capf
                   (company-dabbrev-code company-keywords)))
-
-  (when (fboundp 'exec-path-from-shell-copy-env)
-    (exec-path-from-shell-copy-env "PYTHONPATH"))
 
   (setq-local electric-layout-rules
               '((?: . (lambda ()
