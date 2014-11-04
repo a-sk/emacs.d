@@ -29,7 +29,6 @@
 (depends-on "diminish")
 (depends-on "dired+")
 (depends-on "dired-k")
-(depends-on "dired-rainbow")
 (depends-on "dired-ranger")
 (depends-on "dired-sort")
 (depends-on "evil")
