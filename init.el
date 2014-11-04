@@ -41,6 +41,9 @@
 (let ((default-directory my-vendor-dir))
   (normal-top-level-add-subdirs-to-load-path))
 
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
+
 ;; load environment variables
 (let ((envs '("PATH" "VIRTUAL_ENV" "GOROOT" "GOPATH" "PYTHONPATH")))
   (exec-path-from-shell-copy-envs envs))
@@ -144,12 +147,6 @@ See `pour-mappings-to'."
   map)
 ;;}}}
 
-;;{{{ Packages
-
-(require 'cask "~/.cask/cask.el")
-(cask-initialize)
-
-;;}}}
 
 ;;{{{ Ui
 
@@ -893,7 +890,9 @@ See `pour-mappings-to'."
 
 ;;{{{ Dired
 
+(add-hook 'dired-initial-position-hook 'dired-k)
 (after-load 'dired
+
     (require 'dired-x)
     (require 'dired-sort)
     (require 'bookmark+)
@@ -905,21 +904,11 @@ See `pour-mappings-to'."
     (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$\\|\\.pdf$\\|\\.tex$"))
 
 
-    (require 'dired-rainbow)
-    (defconst my-dired-media-files-extensions
-    '("mp3" "mp4" "MP3" "MP4" "avi" "mpg" "flv" "ogg" "mkv")
-    "Media files.")
-
     (custom-set-variables
       '(bmkp-last-as-first-bookmark-file (expand-file-name "bookmarks" my-var-dir))
       )
-
-    (dired-rainbow-define html "#4e9a06" ("htm" "html" "xhtml"))
-    (dired-rainbow-define media "#ce5c00" my-dired-media-files-extensions)
-
-    ; highlight executable files, but not directories
-    (dired-rainbow-define-chmod executable-unix "Green" "-.*x.*")
 )
+
 
 ;;}}}
 
