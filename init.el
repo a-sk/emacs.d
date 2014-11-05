@@ -159,7 +159,7 @@ See `pour-mappings-to'."
 
 (menu-bar-mode -1)
 
-(scroll-bar-mode -1)
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
 ;; the blinking cursor is nothing, but an annoyance
 (blink-cursor-mode -1)
@@ -895,7 +895,7 @@ See `pour-mappings-to'."
 
     (require 'dired-x)
     (require 'dired-sort)
-    (require 'bookmark+)
+    ;(require 'bookmark+)
 
     (if (eq system-type 'darwin)
     (setq insert-directory-program "/usr/local/bin/gls")
@@ -925,5 +925,6 @@ See `pour-mappings-to'."
 ;;{{{ Others
 (setq sane-term-shell-command "/usr/local/bin/zsh")
 (setq tramp-persistency-file-name (expand-file-name "tramp" my-var-dir))
+(add-hook 'magit-status-mode-hook 'magit-filenotify-mode t)
 
 ;}}}

@@ -80,3 +80,4 @@
 (depends-on "whitespace")
 (depends-on "ws-butler")
 (depends-on "yasnippet")
+(depends-on "magit-filenotify")
