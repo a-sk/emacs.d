@@ -672,6 +672,14 @@ See `pour-mappings-to'."
 
 (require 'expand-region)
 (define-key evil-normal-state-map (kbd "RET") 'er/expand-region)
+
+;; bind evil-args text objects
+(define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
+(define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+
+;; bind evil-forward/backward-args
+(define-key evil-normal-state-map (kbd "C-l") 'evil-forward-arg)
+(define-key evil-normal-state-map (kbd "C-h") 'evil-backward-arg)
 ;;}}}
 
 ;;{{{ Code folding
