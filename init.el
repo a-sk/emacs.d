@@ -238,6 +238,7 @@ See `pour-mappings-to'."
         '(lambda () (linum-mode 1)))
 
 (setq linum-relative-current-symbol "")
+(setq linum-format "%2d ")
 
 (add-hook 'window-setup-hook 'maximize-frame t)
 ;;}}}
