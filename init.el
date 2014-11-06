@@ -590,6 +590,9 @@ See `pour-mappings-to'."
         "M-v"       'clipboard-yank
         "C-v"       'clipboard-yank
         "C-p"       'helm-show-kill-ring
+        "j"         'evil-next-visual-line
+        "k"         'evil-previous-visual-line
+        (kbd "gw")  'evil-ace-jump-word-mode
 )
 (fill-keymap evil-visual-state-map
         "H"         'beginning-of-line
@@ -617,6 +620,7 @@ See `pour-mappings-to'."
         "M-v"       'clipboard-yank
         "C-v"       'clipboard-yank
 )
+
 
 (evil-define-key 'normal dired-mode-map
         "y"   'dired-ranger-copy
