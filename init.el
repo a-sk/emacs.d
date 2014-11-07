@@ -51,7 +51,6 @@
 ;;}}}
 
 ;;{{{ Utilities
-
 (defmacro after-load (feature &rest body)
   "After FEATURE is loaded, evaluate BODY."
   (declare (indent defun))
@@ -594,6 +593,11 @@ See `pour-mappings-to'."
         "j"         'evil-next-visual-line
         "k"         'evil-previous-visual-line
         (kbd "gw")  'evil-ace-jump-word-mode
+
+        "C-f k" 'evil-window-up
+        "C-f j" 'evil-window-down
+        "C-f z" 'my-toggle-windows-split
+        "C-f q" 'switch-window
 )
 (fill-keymap evil-visual-state-map
         "H"         'beginning-of-line
@@ -795,8 +799,30 @@ See `pour-mappings-to'."
   (smartparens-mode +1)
   (anaconda-mode +1)
   (flycheck-mode +1)
-  (setq (make-local-variable 'company-backends)
-    '(company-anaconda company-files company-yasnippet company-semantic company-capf
+
+  (setq
+   python-shell-interpreter "ipython"
+   python-shell-interpreter-args ""
+   python-shell-prompt-regexp "In \\[[0-9]+\\]: "
+   python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
+   python-shell-completion-setup-code
+   "from IPython.core.completerlib import module_completion"
+   python-shell-completion-module-string-code
+   "';'.join(module_completion('''%s'''))\n"
+   python-shell-completion-string-code
+   "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+
+  (define-key inferior-python-mode-map (kbd "C-n")  'comint-next-input)
+  (define-key inferior-python-mode-map (kbd "C-p")  'comint-previous-input)
+
+  (define-key inferior-python-mode-map (kbd "C-f k")  'evil-window-up)
+  (define-key inferior-python-mode-map (kbd "C-f j")  'evil-window-down)
+
+  (define-key python-mode-map (kbd "C-x C-e")  'python-shell-send-defun)
+  (define-key python-mode-map (kbd "C-x e")  'python-shell-send-defun)
+
+
+  (set (make-local-variable 'company-backends) '(company-anaconda company-files company-yasnippet company-semantic company-capf
                   (company-dabbrev-code company-keywords)))
 
   (setq-local electric-layout-rules
@@ -804,6 +830,8 @@ See `pour-mappings-to'."
                         (and (zerop (first (syntax-ppss)))
                              (python-info-statement-starts-block-p)
                              'after)))))
+
+
   (when (fboundp #'python-imenu-create-flat-index)
     (setq-local imenu-create-index-function
                 #'python-imenu-create-flat-index))
@@ -812,6 +840,7 @@ See `pour-mappings-to'."
 )
 
 (add-hook 'python-mode-hook 'my-python-mode-defaults)
+
 
 ;;}}}
 
@@ -941,3 +970,4 @@ See `pour-mappings-to'."
 (add-hook 'magit-status-mode-hook 'magit-filenotify-mode t)
 
 ;}}}
+
