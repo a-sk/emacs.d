@@ -799,6 +799,7 @@ See `pour-mappings-to'."
   (smartparens-mode +1)
   (anaconda-mode +1)
   (flycheck-mode +1)
+  (modify-syntax-entry ?_ "w")
 
   (setq
    python-shell-interpreter "ipython"
