@@ -551,14 +551,22 @@ See `pour-mappings-to'."
 )
 
 (require 'evil)
+;; # * use symbos, not words
+(setq-default evil-symbol-word-search t)
+(setq-default evil-want-C-u-scroll t)
+
 (evil-mode 1)
 (setq evil-motion-state-modes
     (append evil-emacs-state-modes evil-motion-state-modes))
-(setq
-    ;; h/l wrap around to next lines
-    evil-cross-lines t
-    evil-emacs-state-modes '(magit-mode)
-    )
+
+(defadvice evil-search-next (after advice-for-evil-search-next activate)
+  (evil-scroll-line-to-center (line-number-at-pos)))
+
+(defadvice evil-search-forward (after advice-for-evil-search-forward activate)
+  (evil-scroll-line-to-center (line-number-at-pos)))
+
+(defadvice evil-search-backward (after advice-for-evil-search-backward activate)
+  (evil-scroll-line-to-center (line-number-at-pos)))
 
 (require 'evil-visualstar)
 (require 'evil-matchit)
