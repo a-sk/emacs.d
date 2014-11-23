@@ -82,3 +82,4 @@
 (depends-on "yasnippet")
 (depends-on "magit-filenotify")
 (depends-on "evil-args")
+(depends-on "restclient")
